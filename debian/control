@@ -1,0 +1,21 @@
+Source: sonic-pas
+Section: net
+Priority: optional
+Maintainer: Dell <support@dell.com>
+Build-Depends: debhelper (>= 9), dh-autoreconf, libfuse-dev,
+ libsonic-common-dev, libsonic-logging-dev, libsonic-logging-dev,
+ libsonic-sdi-sys-dev, sonic-sdi-api-dev, libsonic-object-library-dev,
+ dh-systemd
+Standards-Version: 3.9.3
+
+Package: sonic-pas
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+ libsonic-pas1 (=${binary:Version}),fuse,sonic-platform-config,sonic-object-library
+Description: This package contains the Platform Adaptation Service.
+
+Package: libsonic-pas1
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: This package contains the Platform Adaptation Service.
+

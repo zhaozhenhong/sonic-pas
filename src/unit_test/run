@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# Script to run unit test
+#
+# Meant to be run from the workspace/.../sysroot/opt/dell/os10/bin directory
+
+CHILD_PIDS=
+FUSE_MNT=$PWD/fuse-$$
+
+function clean_up
+{
+    if [ "$CHILD_PIDS" != "" ]; then
+	echo Stopping child processes
+	kill -9 $CHILD_PIDS
+    fi
+
+    echo Unmounting FUSE
+
+    fusermount -u $FUSE_MNT
+}
+
+trap clean_up EXIT SIGHUP SIGINT SIGTERM
+
+# Set up h/w simulation DB
+
+export DN_SDI_DB_BASE_DIR=../../../etc/opt/dell/os10/sdi
+export DN_SDI_DB_NAME=pas-unit-test.db
+export DN_SDI_DB_INIT=sdi-db-pas-test-init.sql
+export DN_SDI_DB_SEM_KEY=$$
+
+rm -f $DN_SDI_DB_BASE_DIR/$DN_SDI_DB_NAME
+
+export CPSNS=`whoami`-$$	# Set CPS API namespace, for isolation
+
+export LD_LIBRARY_PATH=../lib:$LD_LIBRARY_PATH
+
+ipcrm -S $DN_SDI_DB_SEM_KEY
+
+echo Starting CPS API...
+./cps_api_service &
+CHILD_PIDS=$!
+
+echo Starting unit tests...
+./pasd_unittest_s6000 "$@" $FUSE_MNT &
+TEST_PID=$!
+CHILD_PIDS="$CHILD_PIDS $TEST_PID"
+
+sleep 1
+
+echo Starting PAS...
+./pald $FUSE_MNT &
+CHILD_PIDS="$CHILD_PIDS $!"
+
+wait $TEST_PID
+RESULT=$?
+echo Tests completed
+
+ipcrm -S $DN_SDI_DB_SEM_KEY
+
+exit $RESULT

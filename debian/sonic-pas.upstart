@@ -1,0 +1,8 @@
+description "SONiC platform adaptation service"
+
+start on started sonic-object-library
+stop on stopping sonic-object-library
+
+respawn
+
+exec /usr/bin/sonic_pas_service

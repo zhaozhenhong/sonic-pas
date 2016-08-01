@@ -1,0 +1,18 @@
+[Unit]
+Description= This PAS service is to initialize platform.
+After=sonic-object-library.service
+Wants=sonic-object-library.service
+DefaultDependencies=no
+
+[Service]
+ExecStartPre=/usr/bin/platform_init.sh
+ExecStart=/usr/bin/sonic_pas_service
+KillSignal=SIGKILL
+SuccessExitStatus=SIGKILL
+
+# Resource Limitations
+LimitCORE=infinity
+
+[Install]
+WantedBy=multi-user.target
+
