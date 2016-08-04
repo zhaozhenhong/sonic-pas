@@ -3,7 +3,7 @@ Section: net
 Priority: optional
 Maintainer: Dell <support@dell.com>
 Build-Depends: debhelper (>= 9), dh-autoreconf, libfuse-dev,
- libsonic-common-dev, libsonic-logging-dev, libsonic-logging-dev,
+ libsonic-common-dev, libsonic-logging-dev, libsonic-model-dev,
  libsonic-sdi-sys-dev, sonic-sdi-api-dev, libsonic-object-library-dev,
  dh-systemd
 Standards-Version: 3.9.3
