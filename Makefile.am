@@ -4,7 +4,6 @@ bin_SCRIPTS = scripts/*
 lib_LTLIBRARIES = libsonic_pas.la
 libsonic_pas_la_SOURCES=   src/platform-utils/dn_platform_utils_imp.c
 libsonic_pas_la_CPPFLAGS= -D_FILE_OFFSET_BITS=64 -I$(top_srcdir)/sonic/common -I$(top_srcdir)/sonic -I$(includedir)/sonic -I$(top_srcdir)/sonic/private
-libsonic_pas_la_CXXFLAGS=-std=c++11
 libsonic_pas_la_LDFLAGS= -shared -version-info 1:1:0
 
 #copy sonic-pas systemd service file to target
