@@ -5,7 +5,7 @@ lib_LTLIBRARIES = libsonic_pas.la
 libsonic_pas_la_SOURCES=   src/platform-utils/dn_platform_utils_imp.c
 libsonic_pas_la_CPPFLAGS= -D_FILE_OFFSET_BITS=64 -I$(top_srcdir)/sonic/common -I$(top_srcdir)/sonic -I$(includedir)/sonic -I$(top_srcdir)/sonic/private
 libsonic_pas_la_CXXFLAGS=-std=c++11
-libsonic_pas_la_LDFLAGS= -shared -lsonic_common -lsonic_object_library -lsonic_cps_class_map -lsonic_logging -version-info 1:1:0
+libsonic_pas_la_LDFLAGS= -shared -version-info 1:1:0
 
 #copy sonic-pas systemd service file to target
 systemdconfdir=/lib/systemd/system
@@ -32,5 +32,4 @@ sonic_pas_service_SOURCES+= src/fuse/pas_fuse_fan.c src/fuse/pas_fuse_common.c s
                           
 sonic_pas_service_CPPFLAGS = -D_FILE_OFFSET_BITS=64 -I$(top_srcdir)/sonic -I$(top_srcdir)/sonic/common -I$(includedir)/sonic -I$(includedir)/sonic/private 
 sonic_pas_service_CXXFLAGS= -std=c++11
-sonic_pas_service_LDFLAGS  = -shared -lsonic_pas -lfuse -lsonic_common -lsonic_sdi_sys -lsonic_object_library -lsonic_cps_class_map -lrt -lsonic_logging -lpthread 
-
+sonic_pas_service_LDADD = -lsonic_pas -lfuse -lsonic_common -lsonic_sdi_sys -lsonic_object_library -lrt -lsonic_logging -lpthread
