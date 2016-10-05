@@ -1,9 +1,10 @@
 
 bin_SCRIPTS = scripts/*
 
+AM_CPPFLAGS = -D_FILE_OFFSET_BITS=64 -I$(top_srcdir)/sonic -I$(top_srcdir)/sonic/common -I$(top_srcdir)/sonic/private -I$(includedir)/sonic
+
 lib_LTLIBRARIES = libsonic_pas.la
 libsonic_pas_la_SOURCES=   src/platform-utils/dn_platform_utils_imp.c
-libsonic_pas_la_CPPFLAGS= -D_FILE_OFFSET_BITS=64 -I$(top_srcdir)/sonic/common -I$(top_srcdir)/sonic -I$(includedir)/sonic -I$(top_srcdir)/sonic/private
 libsonic_pas_la_LDFLAGS= -shared -version-info 1:1:0
 
 #copy sonic-pas systemd service file to target
@@ -28,7 +29,6 @@ sonic_pas_service_SOURCES = src/pas_lib.c src/pald.c src/pas_monitor/pas_monitor
 sonic_pas_service_SOURCES+= src/fuse/pas_fuse_fan.c src/fuse/pas_fuse_common.c src/fuse/pas_fuse_led.c src/fuse/pas_fuse_thermal_sensor.c \
                         src/fuse/pas_fuse_display_led.c src/fuse/pas_fuse_entity_info.c src/fuse/pas_fuse_media.c \
 			src/fuse/pas_fuse_parser.c src/fuse/pas_fuse_diag_mode.c src/remote_poller/pas_remote_poller.c
-                          
-sonic_pas_service_CPPFLAGS = -D_FILE_OFFSET_BITS=64 -I$(top_srcdir)/sonic -I$(top_srcdir)/sonic/common -I$(includedir)/sonic -I$(includedir)/sonic/private 
+
 sonic_pas_service_CXXFLAGS= -std=c++11
 sonic_pas_service_LDADD = -lsonic_pas -lfuse -lsonic_common -lsonic_sdi_sys -lsonic_object_library -lrt -lsonic_logging -lpthread
