@@ -14,7 +14,7 @@ The interface provided from the PAS is via the sonic-object-library through regi
 
 Look in the src/models for the yang model that describes the hardware.
 Look at the unit tests from example uses in C++.
-Look at the paltform configuration repo to see a example of monitoring PAS events via pythin.
+Look at the platform configuration repo to see a example of monitoring PAS events via python.
 
 The YANG model for the CPS API PAS reference is : dell-base-pas.yang
 
