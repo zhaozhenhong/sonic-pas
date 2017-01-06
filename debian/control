@@ -13,7 +13,7 @@ Vcs-Git: https://github.com/Azure/sonic-pas.git
 Package: sonic-pas
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
- libsonic-pas1 (=${binary:Version}),fuse,sonic-platform-config,sonic-object-library
+ libsonic-pas1 (=${binary:Version}),fuse,libsonic-sdi-device-drivers1,sonic-platform-s6000-config,sonic-object-library
 Description: This package contains the Platform Adaptation Service.
 
 Package: libsonic-pas1
